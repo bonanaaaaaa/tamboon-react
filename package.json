@@ -1,0 +1,41 @@
+{
+  "name": "tamboon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "server": "json-server --watch db.json --port 3001",
+    "client": "webpack-dev-server",
+    "storybook": "start-storybook -s ./public -p 9001",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
+    "es6-promise": "^4.2.6",
+    "fetch": "^1.1.0",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "styled-components": "^4.1.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/plugin-transform-async-to-generator": "^7.4.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.0",
+    "@babel/plugin-transform-runtime": "^7.4.0",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^5.0.3",
+    "@storybook/addon-viewport": "^5.0.3",
+    "@storybook/react": "^5.0.3",
+    "babel-loader": "^8.0.5",
+    "jest": "^24.5.0",
+    "json-server": "^0.14.2",
+    "nock": "^10.0.6",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  }
+}
