@@ -9,15 +9,15 @@ const deleteMap = (map, key) => {
   return newMap
 }
 
-export const useError = () => {
-  const [errorMap, setStore] = useStore()
+export const useNotifications = () => {
+  const [notificationMap, setStore] = useStore()
 
-  const addError = (error, timeout) => {
+  const addNotification = (notification, timeout) => {
     const uuid = uuidV4()
 
     setStore({
       ...store.state,
-      [uuid]: error
+      [uuid]: notification
     })
 
     if (timeout) {
@@ -27,10 +27,10 @@ export const useError = () => {
     }
   }
 
-  const errors = Object.values(errorMap)
+  const notifications = Object.values(notificationMap)
 
   return {
-    errors,
-    addError
+    notifications,
+    addNotification
   }
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { create, loading, loaded, failed } from "../core/dataState";
-import { useError } from "../core/error";
+import { useNotifications } from "../core/notifications";
 
 export function usePayment() {
   const [initialize, setInitialize] = useState(true);
@@ -11,7 +11,7 @@ export function usePayment() {
     payments: []
   }));
 
-  const { addError } = useError()
+  const { addNotification } = useNotifications()
 
   const sumPaymentAmount = payments =>
     payments.reduce((sum, { amount }) => (sum + amount), 0);
@@ -28,7 +28,10 @@ export function usePayment() {
       )
       .catch(() => {
         const error = new Error('Failed to fetch payments')
-        addError(error, 5000)
+        addNotification({
+          type: 'error',
+          message: error.message
+        }, 5000)
         setPaymentState(failed(paymentState, error))
       });
   };
@@ -47,7 +50,17 @@ export function usePayment() {
       })
     })
       .then(resp => resp.json())
-      .then(() => fetchPayment());
+      .then(() => {
+        addNotification({
+          type: 'success',
+          message: `Thank you for donating to ${charity.name}`
+        }, 5000)
+      })
+      .then(() => fetchPayment())
+      .catch(() => addNotification({
+        type: 'error',
+        message: `Failed to donate to ${charity.name}`
+      }, 5000))
   };
 
   useEffect(() => {

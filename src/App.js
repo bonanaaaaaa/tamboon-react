@@ -8,13 +8,13 @@ import Typography from '@material-ui/core/Typography'
 import Header from './components/Header'
 import CharityBox from './components/CharityBox'
 import DonateDialog from './components/DonateDialog'
-import ErrorBox from './components/ErrorBox'
+import NotificationBox from './components/NotificationBox'
 
 import { useCharities } from "./charity/state";
 import { usePayment } from "./payment/state";
 
 import { renderByState } from "./core/dataState";
-import { useError } from "./core/error";
+import { useNotifications } from "./core/notifications";
 
 
 const WrappedGrid = (props) => (
@@ -35,7 +35,7 @@ const TotalDonationContainer = styled.div`
 function App() {
   const { charitiesState } = useCharities();
   const { paymentState, submitPayment } = usePayment();
-  const { errors } = useError();
+  const { notifications } = useNotifications();
 
   const [selectedCharity, setSelectedCharity] = useState({});
   const [donating, setDonating] = useState(false)
@@ -58,7 +58,7 @@ function App() {
   return (
     <>
       <Header>Omise Tamboon</Header>
-      <ErrorBox errors={errors} />
+      <NotificationBox notifications={notifications} />
       <TotalDonationContainer>
         {renderByState(paymentState, {
           loading: () => (
