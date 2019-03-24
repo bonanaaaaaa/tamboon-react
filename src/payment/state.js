@@ -1,29 +1,36 @@
 import { useState, useEffect } from "react";
 
 import { create, loading, loaded, failed } from "../core/dataState";
+import { useError } from "../core/error";
 
 export function usePayment() {
   const [initialize, setInitialize] = useState(true);
 
-  const [paymentState, setPayment] = useState(create({
+  const [paymentState, setPaymentState] = useState(create({
     total: 0,
     payments: []
   }));
+
+  const { addError } = useError()
 
   const sumPaymentAmount = payments =>
     payments.reduce((sum, { amount }) => (sum + amount), 0);
 
   const fetchPayment = () => {
-    setPayment(loading(paymentState));
+    setPaymentState(loading(paymentState));
     return fetch("http://localhost:3001/payments")
       .then(response => response.json())
       .then(payments =>
-        setPayment(loaded(paymentState, {
+        setPaymentState(loaded(paymentState, {
           payments: payments,
           total: sumPaymentAmount(payments)
         }))
       )
-      .catch(error => setPayment(failed(paymentsState, error)));
+      .catch(() => {
+        const error = new Error('Failed to fetch payments')
+        addError(error, 5000)
+        setPaymentState(failed(paymentState, error))
+      });
   };
 
   const submitPayment = (charity, amount) => {
