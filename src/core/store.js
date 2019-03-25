@@ -28,5 +28,5 @@ export function createStore (initialState) {
     return [ state, store.setState ];
   }
 
-  return {store, useStore}
+  return {useStore}
 }

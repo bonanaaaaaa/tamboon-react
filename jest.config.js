@@ -10,4 +10,5 @@ module.exports = {
   },
   coveragePathIgnorePatterns: ['/src/(index|App)\\.js/'],
   testRegex: '\\.test\\.js',
+  setupFiles: ['./test.setup.js']
 }
