@@ -73,7 +73,7 @@ const renderNotification = (notification) => {
   }
 }
 
-const ErrorBox = ({notifications}) => (
+const NotificationBox = ({notifications}) => (
   <NotificationContainer>
     {notifications.map(notification => (
       <NotificationWrapper key={notification.message}>
@@ -83,4 +83,4 @@ const ErrorBox = ({notifications}) => (
   </NotificationContainer>
 )
 
-export default ErrorBox
+export default NotificationBox

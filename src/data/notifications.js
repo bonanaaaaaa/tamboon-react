@@ -1,7 +1,7 @@
-import { createStore } from './store'
+import { createStore } from '../core/store'
 import uuidV4 from 'uuid/v4'
 
-const {store, useStore} = createStore({})
+const {useStore} = createStore({})
 
 const deleteMap = (map, key) => {
   const newMap = { ...map }
@@ -9,20 +9,24 @@ const deleteMap = (map, key) => {
   return newMap
 }
 
+let notificationState
+
 export const useNotifications = () => {
   const [notificationMap, setStore] = useStore()
+
+  notificationState = notificationMap
 
   const addNotification = (notification, timeout) => {
     const uuid = uuidV4()
 
     setStore({
-      ...store.state,
+      ...notificationState,
       [uuid]: notification
     })
 
     if (timeout) {
       setTimeout(() => {
-        setStore(deleteMap(store.state, uuid))
+        setStore(deleteMap(notificationMap, uuid))
       }, 5000)
     }
   }

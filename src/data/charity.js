@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { create, loading, loaded, failed } from "../core/dataState";
-import { useNotifications } from "../core/notifications";
+import { useNotifications } from "./notifications";
 import { createStore } from "../core/store";
 
 const { useStore } = createStore(true)
@@ -11,7 +11,7 @@ export function useCharities() {
 
   const [charitiesState, setCharities] = useState(create([]));
 
-  const { addError } = useNotifications()
+  const { addNotification } = useNotifications()
 
   const fetchCharities = () => {
     setCharities(loading(charitiesState));

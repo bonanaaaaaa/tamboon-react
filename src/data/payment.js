@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { create, loading, loaded, failed } from "../core/dataState";
-import { useNotifications } from "../core/notifications";
+import { useNotifications } from "./notifications";
 
 export function usePayment() {
   const [initialize, setInitialize] = useState(true);

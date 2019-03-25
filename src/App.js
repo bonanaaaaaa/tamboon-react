@@ -10,12 +10,11 @@ import CharityBox from './components/CharityBox'
 import DonateDialog from './components/DonateDialog'
 import NotificationBox from './components/NotificationBox'
 
-import { useCharities } from "./charity/state";
-import { usePayment } from "./payment/state";
+import { useCharities } from "./data/charity";
+import { usePayment } from "./data/payment";
+import { useNotifications } from "./data/notifications";
 
 import { renderByState } from "./core/dataState";
-import { useNotifications } from "./core/notifications";
-
 
 const WrappedGrid = (props) => (
   <Grid
