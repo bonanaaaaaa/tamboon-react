@@ -32,7 +32,10 @@ function DonateDialog ({
 
   let radioGroupRef
 
-  const onEntering = () => radioGroupRef.focus()
+  const onEntering = () => {
+    setAmount(amountOptions[0])
+    radioGroupRef.focus()
+  }
   const handleChange = (event, value) => {
     setAmount(value)
     if (onChange) onChange(event, +value)
