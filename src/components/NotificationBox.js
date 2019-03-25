@@ -8,12 +8,11 @@ import red from '@material-ui/core/colors/red'
 import green from '@material-ui/core/colors/green'
 
 const NotificationContainer = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  max-height: 200px;
-  max-width: 300px;
+  max-width: 480px;
   margin: auto;
 
   display: flex;
