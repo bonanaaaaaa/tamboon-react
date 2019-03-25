@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import Card from '@material-ui/core/Card'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import CircularProgress from '@material-ui/core/CircularProgress'
 import LinearProgress from '@material-ui/core/LinearProgress'
+
+import Charity from '../types/charity'
 
 const StyledCardMedia = styled(CardMedia)`
   height: 260px;
@@ -31,11 +31,17 @@ const Item = styled.div`
   max-width: 480px;
 `
 
+type Props = {
+  charity: Charity,
+  donationAmount?: number,
+  onClick?: (event: React.MouseEvent<HTMLElement>) => any
+}
+
 function CharityBox ({
   charity,
   donationAmount,
   onClick
-}) {
+}: Props) {
   const imgSrc = `/images/${charity.image}`
 
   return (

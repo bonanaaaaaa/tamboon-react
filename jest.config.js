@@ -8,7 +8,8 @@ module.exports = {
       statements: 90,
     },
   },
-  coveragePathIgnorePatterns: ['/src/(index|App)\\.js/'],
-  testRegex: '\\.test\\.js',
-  setupFiles: ['./test.setup.js']
+  coveragePathIgnorePatterns: ['/src/(index|App)\\.tsx/'],
+  testRegex: '.*(\\.|/)test\\.(ts|tsx|js)$',
+  setupFiles: ['./test.setup.js'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json']
 }

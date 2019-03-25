@@ -4,12 +4,14 @@ import { create, loading, loaded, failed } from "../core/dataState";
 import { useNotifications } from "./notifications";
 import { createStore } from "../core/store";
 
+import Charity from "../types/charity";
+
 const { useStore } = createStore(true)
 
 export function useCharities() {
   const [initialize, setInitialize] = useStore();
 
-  const [charitiesState, setCharities] = useState(create([]));
+  const [charitiesState, setCharities] = useState(create<Charity[]>([]));
 
   const { addNotification } = useNotifications()
 

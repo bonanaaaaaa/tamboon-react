@@ -1,28 +1,23 @@
 const path = require("path");
 
 const config = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "build"),
     publicPath: "build"
   },
 
-  devtool: "inline-source-map",
-
-  devServer: {
-    inline: true,
-    host: "0.0.0.0",
-    port: 3000,
-    historyApiFallback: true,
-    disableHostCheck: true,
-    contentBase: 'public'
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
+
+  devtool: "inline-source-map",
 
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|js)x?$/,
         exclude: [/node_modules/],
         use: {
           loader: "babel-loader"

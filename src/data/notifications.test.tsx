@@ -13,11 +13,15 @@ describe('notifications', () => {
 
       senderNotifications = notifications
       senderAddNotification = addNotification
+
+      return <div />
     }
     function ReceiverComponent () {
       const { notifications } = useNotifications()
 
       receiverNotifications = notifications
+
+      return <div />
     }
 
     shallow(<SenderComponent />)

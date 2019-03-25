@@ -8,13 +8,13 @@ const Root = styled.div`
   flex-grow: 1;
 `
 
-function Header () {
+function Header ({children}) {
   return (
     <Root>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit">
-            Omise Tamboon
+            {children}
           </Typography>
         </Toolbar>
       </AppBar>

@@ -3,10 +3,17 @@ import { useState, useEffect } from "react";
 import { create, loading, loaded, failed } from "../core/dataState";
 import { useNotifications } from "./notifications";
 
+import Payment from '../types/payment'
+
+type State = {
+  total: number;
+  payments: Payment[]
+}
+
 export function usePayment() {
   const [initialize, setInitialize] = useState(true);
 
-  const [paymentState, setPaymentState] = useState(create({
+  const [paymentState, setPaymentState] = useState(create<State>({
     total: 0,
     payments: []
   }));

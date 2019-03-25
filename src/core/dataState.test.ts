@@ -1,15 +1,6 @@
 import * as DataState from './dataState'
 
 describe('create', () => {
-  test('should return correct data', () => {
-    const created = DataState.create()
-    expect(created).toEqual({
-      loading: false,
-      data: null,
-      error: null
-    })
-  })
-
   test('should return correct data with passed data', () => {
     const created = DataState.create(1)
     expect(created).toEqual({

@@ -1,12 +1,9 @@
 import React, {useState} from 'react'
-import styled from 'styled-components'
+
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import IconButton from '@material-ui/core/IconButton'
-import CloseIcon from '@material-ui/icons/Close'
-import Typography from '@material-ui/core/Typography'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -14,11 +11,21 @@ import DialogActions from '@material-ui/core/DialogActions'
 import Slide from '@material-ui/core/Slide'
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
+import Charity from '../types/charity';
+
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
 const amountOptions = ['10', '20', '50', '100']
+
+type Props = {
+  charity: Charity | {};
+  onOk?: (number) => any;
+  onCancel?: () => any;
+  onChange?: (number) => any;
+  open: boolean;
+}
 
 function DonateDialog ({
   charity,
@@ -30,15 +37,12 @@ function DonateDialog ({
 }) {
   const [amount, setAmount] = useState(amountOptions[0])
 
-  let radioGroupRef
-
   const onEntering = () => {
     setAmount(amountOptions[0])
-    radioGroupRef.focus()
   }
   const handleChange = (event, value) => {
     setAmount(value)
-    if (onChange) onChange(event, +value)
+    if (onChange) onChange(+value)
   }
   const handleOk = () => onOk(+amount)
   const handleCancel = () => onCancel()
@@ -53,9 +57,6 @@ function DonateDialog ({
       <DialogTitle>Donate to {charity.name}</DialogTitle>
       <DialogContent>
         <RadioGroup
-          ref={ref => {
-            radioGroupRef = ref;
-          }}
           aria-label="Amount"
           name="amount"
           value={amount}
@@ -83,4 +84,4 @@ function DonateDialog ({
   )
 }
 
-export default withMobileDialog()(DonateDialog)
+export default withMobileDialog<Props>()(DonateDialog)

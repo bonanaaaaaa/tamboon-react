@@ -1,7 +1,14 @@
-import { createStore } from '../core/store'
 import uuidV4 from 'uuid/v4'
 
-const {useStore} = createStore({})
+import { createStore } from '../core/store'
+
+import Notification from '../types/notification'
+
+type NotificationMap = {
+  [key: string]: Notification
+}
+
+const {useStore} = createStore<NotificationMap>({})
 
 const deleteMap = (map, key) => {
   const newMap = { ...map }

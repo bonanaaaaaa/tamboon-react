@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-function buildUrl(baseUrl, path, params) {
+function buildUrl(baseUrl: string, path: string, params: {}) {
   let url
   if (path.match(/\/.*/)) {
     url = new URL(baseUrl + path)
@@ -12,7 +12,7 @@ function buildUrl(baseUrl, path, params) {
   return url.href
 }
 
-function build(url) {
+function build(url: string) {
   return {
     async get(path, params = {}) {
       const requestUrl = buildUrl(url, path, params)

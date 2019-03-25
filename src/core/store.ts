@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 
-export function createStore (initialState) {
+export function createStore<T>(initialState: T) {
   const store = {
     state: initialState,
-    setState(value) {
+    setState(value: T) {
       this.state = value;
       this.setters.forEach(setter => setter(this.state));
     },
@@ -15,7 +15,7 @@ export function createStore (initialState) {
   store.setState = store.setState.bind(store);
 
   // this is the custom hook we'll call on components.
-  function useStore() {
+  function useStore(): [T, (value: T) => void] {
     const [ state, set ] = useState(store.state);
     if (!store.setters.includes(set)) {
       store.setters.push(set);

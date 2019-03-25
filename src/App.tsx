@@ -16,6 +16,8 @@ import { useNotifications } from "./data/notifications";
 
 import { renderByState } from "./core/dataState";
 
+import Charity from './types/Charity'
+
 const WrappedGrid = (props) => (
   <Grid
     item
@@ -36,7 +38,7 @@ function App() {
   const { paymentState, submitPayment } = usePayment();
   const { notifications } = useNotifications();
 
-  const [selectedCharity, setSelectedCharity] = useState({});
+  const [selectedCharity, setSelectedCharity] = useState<Charity | {}>({});
   const [donating, setDonating] = useState(false)
 
   const getDonationAmountByCharity = (payments, charityId) =>
