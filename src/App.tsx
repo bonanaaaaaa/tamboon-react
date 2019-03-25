@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import Grid from '@material-ui/core/Grid'
@@ -10,23 +10,15 @@ import CharityBox from './components/CharityBox'
 import DonateDialog from './components/DonateDialog'
 import NotificationBox from './components/NotificationBox'
 
-import { useCharities } from "./data/charity";
-import { usePayment } from "./data/payment";
-import { useNotifications } from "./data/notifications";
+import { useCharities } from './data/charity'
+import { usePayment } from './data/payment'
+import { useNotifications } from './data/notifications'
 
-import { renderByState } from "./core/dataState";
+import { renderByState } from './core/dataState'
 
 import Charity from './types/Charity'
 
-const WrappedGrid = (props) => (
-  <Grid
-    item
-    xs={12}
-    md={6}
-    xl={3}
-    {...props}
-  />
-)
+const WrappedGrid = props => <Grid item xs={12} md={6} xl={3} {...props} />
 
 const TotalDonationContainer = styled.div`
   padding: 10px 5px 0;
@@ -34,24 +26,22 @@ const TotalDonationContainer = styled.div`
 `
 
 function App() {
-  const { charitiesState } = useCharities();
-  const { paymentState, submitPayment } = usePayment();
-  const { notifications } = useNotifications();
+  const { charitiesState } = useCharities()
+  const { paymentState, submitPayment } = usePayment()
+  const { notifications } = useNotifications()
 
-  const [selectedCharity, setSelectedCharity] = useState<Charity | {}>({});
+  const [selectedCharity, setSelectedCharity] = useState<Charity | {}>({})
   const [donating, setDonating] = useState(false)
 
   const getDonationAmountByCharity = (payments, charityId) =>
-    payments
-      .filter(({ charitiesId }) => charitiesId == charityId)
-      .reduce((sum, { amount }) => sum + amount, 0)
+    payments.filter(({ charitiesId }) => charitiesId === charityId).reduce((sum, { amount }) => sum + amount, 0)
 
-  const handleCharityChange = (charity) => () => {
-    setSelectedCharity(charity);
+  const handleCharityChange = charity => () => {
+    setSelectedCharity(charity)
     setDonating(true)
   }
 
-  const handleOnDonate = (amount) => {
+  const handleOnDonate = amount => {
     setDonating(false)
     submitPayment(selectedCharity, amount)
   }
@@ -63,48 +53,31 @@ function App() {
       <TotalDonationContainer>
         {renderByState(paymentState, {
           loading: () => (
-            <Typography
-              gutterBottom
-              align='right'
-              variant="h5"
-            >
+            <Typography gutterBottom align="right" variant="h5">
               {`Total donation: loading...`}
             </Typography>
           ),
           loaded: payment => (
-            <Typography
-              gutterBottom
-              align='right'
-              variant="h5"
-            >
+            <Typography gutterBottom align="right" variant="h5">
               {`Total donation: ${payment.total}`}
             </Typography>
           ),
-          error: (error) => (
-            <Typography
-              gutterBottom
-              align='right'
-              variant="subtitle2"
-              color="error"
-            >
+          failed: () => (
+            <Typography gutterBottom align="right" variant="subtitle2" color="error">
               Cannot fetch donation data
             </Typography>
-          )
+          ),
         })}
       </TotalDonationContainer>
       <Grid container spacing={16} direction="row" justify="center" alignItems="center">
         {renderByState(charitiesState, {
-          loading: () => (
-            <LinearProgress />
-          ),
-          loaded: charities => (
-            charities.map(c => (
+          loading: () => <LinearProgress />,
+          loaded: charities =>
+            charities.map(c =>
               renderByState(paymentState, {
                 loading: () => (
                   <WrappedGrid key={c.id}>
-                    <CharityBox
-                      charity={c}
-                    />
+                    <CharityBox charity={c} />
                   </WrappedGrid>
                 ),
                 loaded: ({ payments }) => (
@@ -116,26 +89,18 @@ function App() {
                     />
                   </WrappedGrid>
                 ),
-                error: () => (
+                failed: () => (
                   <WrappedGrid key={c.id}>
-                    <CharityBox
-                      charity={c}
-                    />
+                    <CharityBox charity={c} />
                   </WrappedGrid>
-                )
-              })
-            ))
-          ),
-          error: () => (
-            <Typography
-              gutterBottom
-              align='right'
-              variant="subtitle2"
-              color="error"
-            >
+                ),
+              }),
+            ),
+          failed: () => (
+            <Typography gutterBottom align="right" variant="subtitle2" color="error">
               Cannot fetch charities data
             </Typography>
-          )
+          ),
         })}
       </Grid>
       <DonateDialog
@@ -145,7 +110,9 @@ function App() {
         onOk={amount => handleOnDonate(amount)}
       />
     </>
-  );
+  )
 }
 
-export default App;
+App.displayName = 'App'
+
+export default App

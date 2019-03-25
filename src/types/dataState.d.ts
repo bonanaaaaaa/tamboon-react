@@ -1,6 +1,6 @@
 interface DataState<T> {
-  loading: boolean;
-  data: T;
+  loading: boolean
+  data: T
   error: Error
 }
 

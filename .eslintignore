@@ -1,0 +1,5 @@
+/build/*
+
+**/*.d.ts
+
+webpack.config.js

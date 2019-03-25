@@ -6,7 +6,7 @@ describe('create', () => {
     expect(created).toEqual({
       loading: false,
       data: 1,
-      error: null
+      error: null,
     })
   })
 })
@@ -83,9 +83,9 @@ describe('renderByState', () => {
     const loadingDataState = DataState.loading(dataState)
 
     const result = DataState.renderByState(loadingDataState, {
-      loading: (data) => `${data}_loading`,
-      error: () => 11,
-      loaded: () => 12
+      loading: data => `${data}_loading`,
+      failed: () => 11,
+      loaded: () => 12,
     })
 
     expect(result).toEqual('1_loading')
@@ -95,8 +95,8 @@ describe('renderByState', () => {
 
     const result = DataState.renderByState(loadedDataState, {
       loading: () => 12,
-      error: () => 11,
-      loaded: (data) => `${data}_loaded`
+      failed: () => 11,
+      loaded: data => `${data}_loaded`,
     })
 
     expect(result).toEqual('50_loaded')
@@ -107,8 +107,8 @@ describe('renderByState', () => {
 
     const result = DataState.renderByState(loadingDataState, {
       loading: () => 11,
-      error: (err) => err,
-      loaded: () => 12
+      failed: err => err,
+      loaded: () => 12,
     })
 
     expect(result).toEqual(error)

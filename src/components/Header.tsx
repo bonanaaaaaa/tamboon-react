@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 
 const Root = styled.div`
   flex-grow: 1;
 `
 
-function Header ({children}) {
+function Header({ children }) {
   return (
     <Root>
       <AppBar position="static">
@@ -21,5 +21,7 @@ function Header ({children}) {
     </Root>
   )
 }
+
+Header.displayName = 'Header'
 
 export default Header

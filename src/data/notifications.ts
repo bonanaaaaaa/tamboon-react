@@ -4,11 +4,11 @@ import { createStore } from '../core/store'
 
 import Notification from '../types/notification'
 
-type NotificationMap = {
+interface NotificationMap {
   [key: string]: Notification
 }
 
-const {useStore} = createStore<NotificationMap>({})
+const { useStore } = createStore<NotificationMap>({})
 
 const deleteMap = (map, key) => {
   const newMap = { ...map }
@@ -28,7 +28,7 @@ export const useNotifications = () => {
 
     setStore({
       ...notificationState,
-      [uuid]: notification
+      [uuid]: notification,
     })
 
     if (timeout) {
@@ -42,6 +42,6 @@ export const useNotifications = () => {
 
   return {
     notifications,
-    addNotification
+    addNotification,
   }
 }

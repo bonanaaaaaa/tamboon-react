@@ -1,43 +1,47 @@
-import { useState, useEffect } from "react";
+import fetch from 'isomorphic-fetch'
+import { useState, useEffect } from 'react'
 
-import { create, loading, loaded, failed } from "../core/dataState";
-import { useNotifications } from "./notifications";
-import { createStore } from "../core/store";
+import { create, loading, loaded, failed } from '../core/dataState'
+import { useNotifications } from './notifications'
+import { createStore } from '../core/store'
 
-import Charity from "../types/charity";
+import Charity from '../types/charity'
 
 const { useStore } = createStore(true)
 
 export function useCharities() {
-  const [initialize, setInitialize] = useStore();
+  const [initialize, setInitialize] = useStore()
 
-  const [charitiesState, setCharities] = useState(create<Charity[]>([]));
+  const [charitiesState, setCharities] = useState(create<Charity[]>([]))
 
   const { addNotification } = useNotifications()
 
   const fetchCharities = () => {
-    setCharities(loading(charitiesState));
-    fetch("http://localhost:3001/charities")
+    setCharities(loading(charitiesState))
+    fetch('http://localhost:3001/charities')
       .then(response => response.json())
       .then(data => setCharities(loaded(charitiesState, data)))
       .catch(() => {
         const error = new Error('Failed to fetch charities')
-        addNotification({
-          type: 'error',
-          message: error.message
-        }, 5000)
+        addNotification(
+          {
+            type: 'error',
+            message: error.message,
+          },
+          5000,
+        )
         setCharities(failed(charitiesState, error))
-      });
-  };
+      })
+  }
 
   useEffect(() => {
     if (initialize) {
-      fetchCharities();
-      setInitialize(false);
+      fetchCharities()
+      setInitialize(false)
     }
-  });
+  })
 
   return {
-    charitiesState
-  };
+    charitiesState,
+  }
 }

@@ -13,7 +13,7 @@ describe('httpRequest.get', () => {
   beforeEach(() => nock.cleanAll())
   afterEach(() => nock.cleanAll())
 
-  it ('should call get request correctly', async () => {
+  it('should call get request correctly', async () => {
     const response = { id: '123ABC' }
     nock(url)
       .get('/sample')
@@ -24,13 +24,13 @@ describe('httpRequest.get', () => {
     expect(actualResponse).toEqual(response)
   })
 
-  it ('should call get request correctly with params', async () => {
+  it('should call get request correctly with params', async () => {
     const response = { id: '123ABC' }
     nock(url)
       .get('/sample')
       .query({
         x: 1,
-        y: 2
+        y: 2,
       })
       .reply(200, { id: '123ABC' })
 

@@ -8,7 +8,7 @@ describe('notifications', () => {
     let receiverNotifications
     let senderAddNotification
 
-    function SenderComponent () {
+    function SenderComponent() {
       const { notifications, addNotification } = useNotifications()
 
       senderNotifications = notifications
@@ -16,7 +16,7 @@ describe('notifications', () => {
 
       return <div />
     }
-    function ReceiverComponent () {
+    function ReceiverComponent() {
       const { notifications } = useNotifications()
 
       receiverNotifications = notifications

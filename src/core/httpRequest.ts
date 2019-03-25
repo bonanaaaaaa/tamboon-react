@@ -18,7 +18,7 @@ function build(url: string) {
       const requestUrl = buildUrl(url, path, params)
       const resp = await fetch(requestUrl, params)
       return resp.json()
-    }
+    },
   }
 }
 

@@ -11,5 +11,5 @@ module.exports = {
   coveragePathIgnorePatterns: ['/src/(index|App)\\.tsx/'],
   testRegex: '.*(\\.|/)test\\.(ts|tsx|js)$',
   setupFiles: ['./test.setup.js'],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'json']
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
 }

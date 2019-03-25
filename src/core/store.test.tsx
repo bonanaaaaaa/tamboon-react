@@ -9,28 +9,28 @@ describe('store', () => {
     const useSender = () => {
       const [s, set] = useStore()
 
-      return {s, set}
+      return { s, set }
     }
 
     const useReceiver = () => {
       const [r] = useStore()
 
-      return {r}
+      return { r }
     }
 
-    function SenderComponent ({ render }) {
-      const {s, set} = useSender()
+    function SenderComponent({ render }) {
+      const { s, set } = useSender()
 
       return render({
         s,
-        set
+        set,
       })
     }
-    function ReceiverComponent ({ render }) {
-      const {r} = useReceiver()
+    function ReceiverComponent({ render }) {
+      const { r } = useReceiver()
 
       return render({
-        r
+        r,
       })
     }
 
@@ -38,12 +38,12 @@ describe('store', () => {
     let rValue
     let setter
 
-    function senderFn ({ s, set }) {
+    function senderFn({ s, set }) {
       sValue = s
       setter = set
     }
 
-    function receiverFn ({ r }) {
+    function receiverFn({ r }) {
       rValue = r
     }
 
@@ -57,7 +57,7 @@ describe('store', () => {
     expect(rValue).toEqual({ a: 1 })
     setter({
       ...sValue,
-      b: 2
+      b: 2,
     })
     expect(sValue).toEqual({ a: 1, b: 2 })
     expect(rValue).toEqual({ a: 1, b: 2 })

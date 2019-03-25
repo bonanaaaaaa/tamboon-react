@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-import ErrorIcon from '@material-ui/icons/Error';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import SnackbarContent from '@material-ui/core/SnackbarContent'
+import ErrorIcon from '@material-ui/icons/Error'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import red from '@material-ui/core/colors/red'
 import green from '@material-ui/core/colors/green'
 
@@ -51,42 +51,44 @@ const ErrorSnackbar = styled(SnackbarContent)`
 `
 
 const renderNotification = (notification: Notification) => {
-  switch(notification.type) {
+  switch (notification.type) {
     case 'success':
-      return (<SuccessSnackbar
-        open
-        message={
-          <WrappedMessage>
-            <StyledCheckCircleIcon />
-            {notification.message}
-          </WrappedMessage>
-        }
-      />)
+      return (
+        <SuccessSnackbar
+          message={
+            <WrappedMessage>
+              <StyledCheckCircleIcon />
+              {notification.message}
+            </WrappedMessage>
+          }
+        />
+      )
     case 'error':
-      return (<ErrorSnackbar
-        open
-        message={
-          <WrappedMessage>
-            <StyledErrorIcon />
-            {notification.message}
-          </WrappedMessage>
-        }
-      />)
+      return (
+        <ErrorSnackbar
+          message={
+            <WrappedMessage>
+              <StyledErrorIcon />
+              {notification.message}
+            </WrappedMessage>
+          }
+        />
+      )
   }
 }
 
-type Props = {
+interface Props {
   notifications: Notification[]
 }
 
-const NotificationBox = ({notifications}: Props) => (
+const NotificationBox = ({ notifications }: Props) => (
   <NotificationContainer>
     {notifications.map(notification => (
-      <NotificationWrapper key={notification.message}>
-        {renderNotification(notification)}
-      </NotificationWrapper>
+      <NotificationWrapper key={notification.message}>{renderNotification(notification)}</NotificationWrapper>
     ))}
   </NotificationContainer>
 )
+
+NotificationBox.displayName = 'NotificationBox'
 
 export default NotificationBox

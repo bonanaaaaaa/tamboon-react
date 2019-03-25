@@ -1,5 +1,5 @@
-interface Notification {
-  type: 'success' | 'error',
+type Notification = {
+  type: string
   message: string
 }
 

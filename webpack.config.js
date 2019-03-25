@@ -1,18 +1,18 @@
-const path = require("path");
+const path = require('path')
 
 const config = {
-  entry: "./src/index.tsx",
+  entry: './src/index.tsx',
   output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "build"),
-    publicPath: "build"
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'build'),
+    publicPath: 'build',
   },
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.json'],
   },
 
-  devtool: "inline-source-map",
+  devtool: 'inline-source-map',
 
   module: {
     rules: [
@@ -20,20 +20,20 @@ const config = {
         test: /\.(ts|js)x?$/,
         exclude: [/node_modules/],
         use: {
-          loader: "babel-loader"
-        }
-      }
-    ]
+          loader: 'babel-loader',
+        },
+      },
+    ],
   },
 
   devServer: {
     inline: true,
-    host: "0.0.0.0",
+    host: '0.0.0.0',
     port: 3000,
     historyApiFallback: true,
     disableHostCheck: true,
-    contentBase: "public"
+    contentBase: 'public',
   },
-};
+}
 
-module.exports = config;
+module.exports = config
