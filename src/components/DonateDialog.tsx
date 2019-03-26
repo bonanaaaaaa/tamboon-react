@@ -8,37 +8,37 @@ import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
-import Slide from '@material-ui/core/Slide'
-import withMobileDialog from '@material-ui/core/withMobileDialog'
+import Slide, { SlideProps } from '@material-ui/core/Slide'
+import withMobileDialog, { InjectedProps } from '@material-ui/core/withMobileDialog'
 
 import Charity from '../types/charity'
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />
-}
+const Transition: React.FunctionComponent<Omit<SlideProps, 'direction'>> = props => <Slide direction="up" {...props} />
 
 const amountOptions = ['10', '20', '50', '100']
 
-interface Props {
-  charity: Charity | {}
-  onOk?: (number) => void
+const DEFAULT_AMOUNT_OPTION = amountOptions[0]
+
+interface Props extends InjectedProps {
+  charity: Charity
+  onOk?: (donateAmount: number) => void
   onCancel?: () => void
-  onChange?: (number) => void
+  onChange?: (donateAmount: number) => void
   open: boolean
 }
 
-function DonateDialog({ charity, onOk, onCancel, onChange, open, fullScreen }) {
-  const [amount, setAmount] = useState(amountOptions[0])
+function DonateDialog({ charity, onOk, onCancel, onChange, open, fullScreen }: Props) {
+  const [amount, setAmount] = useState(DEFAULT_AMOUNT_OPTION)
 
   const onEntering = () => {
-    setAmount(amountOptions[0])
+    setAmount(DEFAULT_AMOUNT_OPTION)
   }
-  const handleChange = (event, value) => {
+  const handleChange = (event: React.ChangeEvent<{}>, value: string) => {
     setAmount(value)
     if (onChange) onChange(+value)
   }
-  const handleOk = () => onOk(+amount)
-  const handleCancel = () => onCancel()
+  const handleOk = () => onOk && onOk(+amount)
+  const handleCancel = () => onCancel && onCancel()
 
   return (
     <Dialog fullScreen={fullScreen} open={open} onEntering={onEntering} TransitionComponent={Transition}>

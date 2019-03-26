@@ -1,7 +1,7 @@
 import DataState from '../types/dataState'
-import { ReactElement } from 'react'
+import { ReactNode } from 'react'
 
-export function create<T>(data): DataState<T> {
+export function create<T>(data: T): DataState<T> {
   return {
     loading: false,
     data: data,
@@ -35,9 +35,9 @@ export function failed<T>(dataState: DataState<T>, error: Error): DataState<T> {
 }
 
 interface RenderState<T> {
-  loading: (data?: T) => void | ReactElement
-  loaded: (data?: T) => void | ReactElement
-  failed: (error?: Error) => void | ReactElement
+  loading: (data: T) => ReactNode
+  loaded: (data: T) => ReactNode
+  failed: (error: Error | null) => ReactNode
 }
 
 export function renderByState<T>(dataState: DataState<T>, renderState: RenderState<T>) {

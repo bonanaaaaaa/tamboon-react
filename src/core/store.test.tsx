@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { shallow } from 'enzyme'
 import { createStore } from './store'
+import { ReactElementLike } from 'prop-types'
+
+type SChildren = (value: { value: number; set: (v: number) => void }) => ReactElementLike
+type RChildren = (value: { value: number }) => ReactElementLike
 
 describe('store', () => {
   test('should store things globally', () => {
-    const { useStore } = createStore({})
+    const { useStore } = createStore(0)
 
     const useSender = () => {
       const [s, set] = useStore()
@@ -18,48 +22,49 @@ describe('store', () => {
       return { r }
     }
 
-    function SenderComponent({ render }) {
+    const SenderComponent: FunctionComponent<{ children: SChildren }> = ({ children }) => {
       const { s, set } = useSender()
 
-      return render({
-        s,
+      return children({
+        value: s,
         set,
       })
     }
-    function ReceiverComponent({ render }) {
+    const ReceiverComponent: FunctionComponent<{ children: RChildren }> = ({ children }) => {
       const { r } = useReceiver()
 
-      return render({
-        r,
+      return children({
+        value: r,
       })
     }
 
-    let sValue
-    let rValue
-    let setter
+    let sValue: number = 0
+    let rValue: number = 0
+    let setter: (value: number) => void = () => {}
 
-    function senderFn({ s, set }) {
+    const senderFn: SChildren = ({ value: s, set }) => {
       sValue = s
       setter = set
+
+      return <div />
     }
 
-    function receiverFn({ r }) {
+    const receiverFn: RChildren = ({ value: r }) => {
       rValue = r
+
+      return <div />
     }
 
-    shallow(<SenderComponent render={senderFn} />)
-    shallow(<ReceiverComponent render={receiverFn} />)
+    shallow(<SenderComponent>{senderFn}</SenderComponent>)
+    shallow(<ReceiverComponent>{receiverFn}</ReceiverComponent>)
 
     expect(sValue).toEqual({})
     expect(rValue).toEqual({})
-    setter({ a: 1 })
-    expect(sValue).toEqual({ a: 1 })
-    expect(rValue).toEqual({ a: 1 })
-    setter({
-      ...sValue,
-      b: 2,
-    })
-    expect(sValue).toEqual({ a: 1, b: 2 })
-    expect(rValue).toEqual({ a: 1, b: 2 })
+    setter(1)
+    expect(sValue).toEqual(1)
+    expect(rValue).toEqual(1)
+    setter(sValue + 1)
+    expect(sValue).toEqual(2)
+    expect(rValue).toEqual(2)
   })
 })

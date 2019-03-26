@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions'
 import DonateDialog from './DonateDialog'
 
 const charity = {
+  id: 1,
   name: 'Baan Kru Noi',
   image: 'baan-kru-noi.jpg',
   currency: 'THB',

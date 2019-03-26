@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import Grid from '@material-ui/core/Grid'
+import Grid, { GridProps } from '@material-ui/core/Grid'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Typography from '@material-ui/core/Typography'
 
@@ -17,8 +17,9 @@ import { useNotifications } from './data/notifications'
 import { renderByState } from './core/dataState'
 
 import Charity from './types/Charity'
+import Payment from './types/payment'
 
-const WrappedGrid = props => <Grid item xs={12} md={6} xl={3} {...props} />
+const WrappedGrid = (props: GridProps) => <Grid item xs={12} md={6} xl={3} {...props} />
 
 const TotalDonationContainer = styled.div`
   padding: 10px 5px 0;
@@ -30,18 +31,18 @@ function App() {
   const { paymentState, submitPayment } = usePayment()
   const { notifications } = useNotifications()
 
-  const [selectedCharity, setSelectedCharity] = useState<Charity | {}>({})
+  const [selectedCharity, setSelectedCharity] = useState<Charity>({} as Charity)
   const [donating, setDonating] = useState(false)
 
-  const getDonationAmountByCharity = (payments, charityId) =>
+  const getDonationAmountByCharity = (payments: Payment[], charityId: number) =>
     payments.filter(({ charitiesId }) => charitiesId === charityId).reduce((sum, { amount }) => sum + amount, 0)
 
-  const handleCharityChange = charity => () => {
+  const handleCharityChange = (charity: Charity) => () => {
     setSelectedCharity(charity)
     setDonating(true)
   }
 
-  const handleOnDonate = amount => {
+  const handleOnDonate = (amount: number) => {
     setDonating(false)
     submitPayment(selectedCharity, amount)
   }

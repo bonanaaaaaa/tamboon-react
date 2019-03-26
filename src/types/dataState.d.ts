@@ -1,7 +1,7 @@
 interface DataState<T> {
   loading: boolean
   data: T
-  error: Error
+  error: Error | null
 }
 
 export default DataState

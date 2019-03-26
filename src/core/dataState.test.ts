@@ -1,4 +1,5 @@
 import * as DataState from './dataState'
+import IDataState from '../types/dataState'
 
 describe('create', () => {
   test('should return correct data with passed data', () => {
@@ -12,7 +13,7 @@ describe('create', () => {
 })
 
 describe('loading', () => {
-  let dataState
+  let dataState: IDataState<number>
   beforeEach(() => {
     dataState = DataState.create(1)
   })
@@ -29,7 +30,7 @@ describe('loading', () => {
 })
 
 describe('loaded', () => {
-  let dataState
+  let dataState: IDataState<number>
   beforeEach(() => {
     dataState = DataState.create(1)
   })
@@ -56,7 +57,7 @@ describe('loaded', () => {
 })
 
 describe('failed', () => {
-  let dataState
+  let dataState: IDataState<number>
   beforeEach(() => {
     dataState = DataState.create(1)
   })
@@ -74,7 +75,7 @@ describe('failed', () => {
 })
 
 describe('renderByState', () => {
-  let dataState
+  let dataState: IDataState<number>
   beforeEach(() => {
     dataState = DataState.create(1)
   })

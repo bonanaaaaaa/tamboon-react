@@ -5,8 +5,9 @@ import { create, loading, loaded, failed } from '../core/dataState'
 import { useNotifications } from './notifications'
 
 import Payment from '../types/payment'
+import Charity from '../types/charity'
 
-interface State {
+type PaymentState = {
   total: number
   payments: Payment[]
 }
@@ -15,7 +16,7 @@ export function usePayment() {
   const [initialize, setInitialize] = useState(true)
 
   const [paymentState, setPaymentState] = useState(
-    create<State>({
+    create<PaymentState>({
       total: 0,
       payments: [],
     }),
@@ -23,13 +24,13 @@ export function usePayment() {
 
   const { addNotification } = useNotifications()
 
-  const sumPaymentAmount = payments => payments.reduce((sum, { amount }) => sum + amount, 0)
+  const sumPaymentAmount = (payments: Payment[]) => payments.reduce((sum, { amount }) => sum + amount, 0)
 
   const fetchPayment = () => {
     setPaymentState(loading(paymentState))
     fetch('http://localhost:3001/payments')
       .then(response => response.json())
-      .then(payments =>
+      .then((payments: Payment[]) =>
         setPaymentState(
           loaded(paymentState, {
             payments: payments,
@@ -50,7 +51,7 @@ export function usePayment() {
       })
   }
 
-  const submitPayment = (charity, amount) => {
+  const submitPayment = (charity: Charity, amount: number) => {
     fetch('http://localhost:3001/payments', {
       method: 'POST',
       headers: {

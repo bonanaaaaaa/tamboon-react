@@ -9,7 +9,8 @@
     "storybook": "start-storybook -s ./public -p 9001",
     "test": "jest",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prettier": "prettier --write \"**/*.{js,json,ts,tsx}\""
+    "prettier": "prettier --write \"**/*.{js,json,ts,tsx}\"",
+    "check-types": "tsc"
   },
   "husky": {
     "hooks": {
@@ -40,12 +41,16 @@
     "@storybook/addon-info": "^5.0.5",
     "@storybook/addon-viewport": "^5.0.5",
     "@storybook/react": "^5.0.5",
+    "@types/enzyme": "^3.9.1",
+    "@types/isomorphic-fetch": "^0.0.35",
     "@types/jest": "^24.0.11",
     "@types/node": "^11.11.6",
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.3",
+    "@types/storybook__addon-actions": "^3.4.2",
     "@types/storybook__react": "^4.0.1",
     "@types/styled-components": "^4.1.12",
+    "@types/uuid": "^3.4.4",
     "@typescript-eslint/eslint-plugin": "^1.5.0",
     "@typescript-eslint/parser": "^1.5.0",
     "babel-loader": "^8.0.5",

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -8,7 +8,11 @@ const Root = styled.div`
   flex-grow: 1;
 `
 
-function Header({ children }) {
+type Props = {
+  children: ReactNode | string
+}
+
+function Header({ children }: Props) {
   return (
     <Root>
       <AppBar position="static">

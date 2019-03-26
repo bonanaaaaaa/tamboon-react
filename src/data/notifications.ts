@@ -10,20 +10,20 @@ interface NotificationMap {
 
 const { useStore } = createStore<NotificationMap>({})
 
-const deleteMap = (map, key) => {
+const deleteMap = (map: NotificationMap, key: string) => {
   const newMap = { ...map }
   delete newMap[key]
   return newMap
 }
 
-let notificationState
+let notificationState: NotificationMap
 
 export const useNotifications = () => {
   const [notificationMap, setStore] = useStore()
 
   notificationState = notificationMap
 
-  const addNotification = (notification, timeout) => {
+  const addNotification = (notification: Notification, timeout?: number) => {
     const uuid = uuidV4()
 
     setStore({

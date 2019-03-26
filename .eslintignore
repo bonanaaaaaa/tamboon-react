@@ -3,3 +3,5 @@
 **/*.d.ts
 
 webpack.config.js
+
+.vscode

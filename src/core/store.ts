@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react'
 
+type Store<T> = {
+  state: T
+  setState: (value: T) => void
+  setters: ((value: T) => void)[]
+}
+
 export function createStore<T>(initialState: T) {
-  const store = {
+  const store: Store<T> = {
     state: initialState,
     setState(value: T) {
       this.state = value
