@@ -1,12 +1,15 @@
 import React, { FunctionComponent } from 'react'
-import { shallow } from 'enzyme'
+import { render, act, cleanup } from 'react-testing-library'
 import { createStore } from './store'
 import { ReactElementLike } from 'prop-types'
+import 'jest-dom/extend-expect'
 
 type SChildren = (value: { value: number; set: (v: number) => void }) => ReactElementLike
 type RChildren = (value: { value: number }) => ReactElementLike
 
 describe('store', () => {
+  afterEach(cleanup)
+
   test('should store things globally', () => {
     const { useStore } = createStore(0)
 
@@ -38,33 +41,43 @@ describe('store', () => {
       })
     }
 
-    let sValue: number = 0
-    let rValue: number = 0
-    let setter: (value: number) => void = () => {}
+    let sValue1: number = 0
+    let setter1: (value: number) => void = () => {}
+    let setter2: (value: number) => void = () => {}
 
-    const senderFn: SChildren = ({ value: s, set }) => {
-      sValue = s
-      setter = set
+    const senderFn1: SChildren = ({ value, set }) => {
+      sValue1 = value
+      setter1 = set
 
-      return <div />
+      return <div>{value}</div>
+    }
+    const senderFn2: SChildren = ({ value, set }) => {
+      setter2 = set
+
+      return <div>{value}</div>
     }
 
-    const receiverFn: RChildren = ({ value: r }) => {
-      rValue = r
+    const receiverFn: RChildren = ({ value }) => <div>{value}</div>
 
-      return <div />
-    }
+    let senderWrapper1 = render(<SenderComponent>{senderFn1}</SenderComponent>)
+    const senderWrapper2 = render(<SenderComponent>{senderFn2}</SenderComponent>)
+    const receiverWrapper = render(<ReceiverComponent>{receiverFn}</ReceiverComponent>)
 
-    shallow(<SenderComponent>{senderFn}</SenderComponent>)
-    shallow(<ReceiverComponent>{receiverFn}</ReceiverComponent>)
-
-    expect(sValue).toEqual(0)
-    expect(rValue).toEqual(0)
-    setter(1)
-    expect(sValue).toEqual(1)
-    expect(rValue).toEqual(1)
-    setter(sValue + 1)
-    expect(sValue).toEqual(2)
-    expect(rValue).toEqual(2)
+    expect(senderWrapper1.container).toHaveTextContent('0')
+    expect(senderWrapper2.container).toHaveTextContent('0')
+    expect(receiverWrapper.container).toHaveTextContent('0')
+    act(() => setter1(1))
+    expect(senderWrapper1.container).toHaveTextContent('1')
+    expect(senderWrapper2.container).toHaveTextContent('1')
+    expect(receiverWrapper.container).toHaveTextContent('1')
+    act(() => setter2(2))
+    expect(senderWrapper1.container).toHaveTextContent('2')
+    expect(senderWrapper2.container).toHaveTextContent('2')
+    expect(receiverWrapper.container).toHaveTextContent('2')
+    senderWrapper1.unmount()
+    act(() => setter2(10))
+    expect(sValue1).toEqual(2)
+    expect(senderWrapper2.container).toHaveTextContent('10')
+    expect(receiverWrapper.container).toHaveTextContent('10')
   })
 })
