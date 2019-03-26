@@ -58,8 +58,8 @@ describe('store', () => {
     shallow(<SenderComponent>{senderFn}</SenderComponent>)
     shallow(<ReceiverComponent>{receiverFn}</ReceiverComponent>)
 
-    expect(sValue).toEqual({})
-    expect(rValue).toEqual({})
+    expect(sValue).toEqual(0)
+    expect(rValue).toEqual(0)
     setter(1)
     expect(sValue).toEqual(1)
     expect(rValue).toEqual(1)
