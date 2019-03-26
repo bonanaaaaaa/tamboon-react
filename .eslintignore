@@ -1,7 +1,25 @@
-/build/*
-
 **/*.d.ts
 
 webpack.config.js
+
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+.DS_Store
+
+.tmp-*
+
+node_modules
+npm-debug.log*
+
+coverage
+
+dist
+build
 
 .vscode

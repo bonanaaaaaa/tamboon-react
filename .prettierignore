@@ -1,5 +1,23 @@
-build
-
 db.json
+
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+.DS_Store
+
+.tmp-*
+
+node_modules
+npm-debug.log*
+
+coverage
+
+dist
+build
 
 .vscode
