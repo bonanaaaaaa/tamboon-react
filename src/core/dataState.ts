@@ -1,4 +1,5 @@
 import DataState from '../types/dataState'
+import { ReactElement } from 'react'
 
 export function create<T>(data): DataState<T> {
   return {
@@ -34,9 +35,9 @@ export function failed<T>(dataState: DataState<T>, error: Error): DataState<T> {
 }
 
 interface RenderState<T> {
-  loading: (data?: T) => any
-  loaded: (data?: T) => any
-  failed: (error?: Error) => any
+  loading: (data?: T) => void | ReactElement
+  loaded: (data?: T) => void | ReactElement
+  failed: (error?: Error) => void | ReactElement
 }
 
 export function renderByState<T>(dataState: DataState<T>, renderState: RenderState<T>) {

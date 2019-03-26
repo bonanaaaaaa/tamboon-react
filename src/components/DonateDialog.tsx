@@ -21,9 +21,9 @@ const amountOptions = ['10', '20', '50', '100']
 
 interface Props {
   charity: Charity | {}
-  onOk?: (number) => any
-  onCancel?: () => any
-  onChange?: (number) => any
+  onOk?: (number) => void
+  onCancel?: () => void
+  onChange?: (number) => void
   open: boolean
 }
 

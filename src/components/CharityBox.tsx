@@ -34,7 +34,7 @@ const Item = styled.div`
 interface Props {
   charity: Charity
   donationAmount?: number
-  onClick?: (event: React.MouseEvent<HTMLElement>) => any
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void
 }
 
 function CharityBox({ charity, donationAmount, onClick }: Props) {
