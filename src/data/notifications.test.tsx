@@ -1,14 +1,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { useNotifications } from './notifications'
-
-import Notification from '../types/notification'
+import { useNotifications, INotification } from './notifications'
 
 describe('notifications', () => {
   test('should store notifications globally', () => {
-    let senderNotifications: Notification[] = []
-    let receiverNotifications: Notification[] = []
-    let senderAddNotification: (notification: Notification, timeout?: number | undefined) => void = () => {}
+    let senderNotifications: INotification[] = []
+    let receiverNotifications: INotification[] = []
+    let senderAddNotification: (notification: INotification, timeout?: number | undefined) => void = () => {}
 
     function SenderComponent() {
       const { notifications, addNotification } = useNotifications()

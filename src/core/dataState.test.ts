@@ -1,9 +1,8 @@
-import * as DataState from './dataState'
-import IDataState from '../types/dataState'
+import { create, loading, loaded, failed, renderByState, IDataState } from './dataState'
 
 describe('create', () => {
   test('should return correct data with passed data', () => {
-    const created = DataState.create(1)
+    const created = create(1)
     expect(created).toEqual({
       loading: false,
       data: 1,
@@ -15,11 +14,11 @@ describe('create', () => {
 describe('loading', () => {
   let dataState: IDataState<number>
   beforeEach(() => {
-    dataState = DataState.create(1)
+    dataState = create(1)
   })
 
   test('should set loading to true', () => {
-    const loadingDataState = DataState.loading(dataState)
+    const loadingDataState = loading(dataState)
 
     expect(loadingDataState).toEqual({
       error: null,
@@ -32,13 +31,13 @@ describe('loading', () => {
 describe('loaded', () => {
   let dataState: IDataState<number>
   beforeEach(() => {
-    dataState = DataState.create(1)
+    dataState = create(1)
   })
 
   test('should set loading to false', () => {
-    const loaded = DataState.loaded(dataState)
+    const loadedDataState = loaded(dataState)
 
-    expect(loaded).toEqual({
+    expect(loadedDataState).toEqual({
       error: null,
       data: 1,
       loading: false,
@@ -46,9 +45,9 @@ describe('loaded', () => {
   })
 
   test('should set loading to false and data to passed data', () => {
-    const loaded = DataState.loaded(dataState, 20)
+    const loadedDataState = loaded(dataState, 20)
 
-    expect(loaded).toEqual({
+    expect(loadedDataState).toEqual({
       error: null,
       data: 20,
       loading: false,
@@ -59,14 +58,14 @@ describe('loaded', () => {
 describe('failed', () => {
   let dataState: IDataState<number>
   beforeEach(() => {
-    dataState = DataState.create(1)
+    dataState = create(1)
   })
 
   test('should set loading to false and error to passed error', () => {
     const error = new Error('error')
-    const loaded = DataState.failed(dataState, new Error('error'))
+    const failedDataState = failed(dataState, new Error('error'))
 
-    expect(loaded).toEqual({
+    expect(failedDataState).toEqual({
       error,
       data: 1,
       loading: false,
@@ -77,13 +76,13 @@ describe('failed', () => {
 describe('renderByState', () => {
   let dataState: IDataState<number>
   beforeEach(() => {
-    dataState = DataState.create(1)
+    dataState = create(1)
   })
 
   test('should render loading if dataState is at loading state', () => {
-    const loadingDataState = DataState.loading(dataState)
+    const loadingDataState = loading(dataState)
 
-    const result = DataState.renderByState(loadingDataState, {
+    const result = renderByState(loadingDataState, {
       loading: data => `${data}_loading`,
       failed: () => 11,
       loaded: () => 12,
@@ -92,9 +91,9 @@ describe('renderByState', () => {
     expect(result).toEqual('1_loading')
   })
   test('should render loaded if dataState is at loaded state', () => {
-    const loadedDataState = DataState.loaded(dataState, 50)
+    const loadedDataState = loaded(dataState, 50)
 
-    const result = DataState.renderByState(loadedDataState, {
+    const result = renderByState(loadedDataState, {
       loading: () => 12,
       failed: () => 11,
       loaded: data => `${data}_loaded`,
@@ -104,9 +103,9 @@ describe('renderByState', () => {
   })
   test('should render error if dataState is at error state', () => {
     const error = new Error('error')
-    const loadingDataState = DataState.failed(dataState, error)
+    const loadingDataState = failed(dataState, error)
 
-    const result = DataState.renderByState(loadingDataState, {
+    const result = renderByState(loadingDataState, {
       loading: () => 11,
       failed: err => err,
       loaded: () => 12,
