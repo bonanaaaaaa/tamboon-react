@@ -1,7 +1,13 @@
 import DataState from '../types/dataState'
 import { ReactNode } from 'react'
 
-export function create<T>(data: T): DataState<T> {
+export interface IDataState<T> {
+  loading: boolean
+  data: T
+  error: Error | null
+}
+
+export function create<T>(data: T): IDataState<T> {
   return {
     loading: false,
     data: data,
@@ -9,14 +15,14 @@ export function create<T>(data: T): DataState<T> {
   }
 }
 
-export function loading<T>(dataState: DataState<T>): DataState<T> {
+export function loading<T>(dataState: IDataState<T>): IDataState<T> {
   return {
     ...dataState,
     loading: true,
   }
 }
 
-export function loaded<T>(dataState: DataState<T>, data?: T): DataState<T> {
+export function loaded<T>(dataState: IDataState<T>, data?: T): IDataState<T> {
   const newData = data != null ? data : dataState.data
 
   return {
@@ -26,7 +32,7 @@ export function loaded<T>(dataState: DataState<T>, data?: T): DataState<T> {
   }
 }
 
-export function failed<T>(dataState: DataState<T>, error: Error): DataState<T> {
+export function failed<T>(dataState: IDataState<T>, error: Error): IDataState<T> {
   return {
     ...dataState,
     loading: false,
@@ -40,7 +46,7 @@ interface RenderState<T> {
   failed: (error: Error | null) => ReactNode
 }
 
-export function renderByState<T>(dataState: DataState<T>, renderState: RenderState<T>) {
+export function renderByState<T>(dataState: IDataState<T>, renderState: RenderState<T>) {
   if (dataState.loading) {
     return renderState.loading(dataState.data)
   } else if (dataState.error != null) {

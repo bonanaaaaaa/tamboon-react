@@ -11,7 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import Slide, { SlideProps } from '@material-ui/core/Slide'
 import withMobileDialog, { InjectedProps } from '@material-ui/core/withMobileDialog'
 
-import Charity from '../types/charity'
+import { ICharity } from '../data/charity'
 
 const Transition: React.FunctionComponent<Omit<SlideProps, 'direction'>> = props => <Slide direction="up" {...props} />
 
@@ -20,7 +20,7 @@ const amountOptions = ['10', '20', '50', '100']
 const DEFAULT_AMOUNT_OPTION = amountOptions[0]
 
 interface Props extends InjectedProps {
-  charity: Charity
+  charity: ICharity
   onOk?: (donateAmount: number) => void
   onCancel?: () => void
   onChange?: (donateAmount: number) => void

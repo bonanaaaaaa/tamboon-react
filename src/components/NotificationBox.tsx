@@ -7,7 +7,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import red from '@material-ui/core/colors/red'
 import green from '@material-ui/core/colors/green'
 
-import Notification from '../types/notification'
+import { INotification } from '../data/notifications'
 
 const NotificationContainer = styled.div`
   position: fixed;
@@ -50,7 +50,7 @@ const ErrorSnackbar = styled(SnackbarContent)`
   flex: 1;
 `
 
-const renderNotification = (notification: Notification) => {
+const renderNotification = (notification: INotification) => {
   switch (notification.type) {
     case 'success':
       return (
@@ -78,7 +78,7 @@ const renderNotification = (notification: Notification) => {
 }
 
 interface Props {
-  notifications: Notification[]
+  notifications: INotification[]
 }
 
 const NotificationBox = ({ notifications }: Props) => (

@@ -10,14 +10,11 @@ import CharityBox from './components/CharityBox'
 import DonateDialog from './components/DonateDialog'
 import NotificationBox from './components/NotificationBox'
 
-import { useCharities } from './data/charity'
-import { usePayment } from './data/payment'
+import { useCharities, ICharity } from './data/charity'
+import { usePayment, IPayment } from './data/payment'
 import { useNotifications } from './data/notifications'
 
 import { renderByState } from './core/dataState'
-
-import Charity from './types/Charity'
-import Payment from './types/payment'
 
 const WrappedGrid = (props: GridProps) => <Grid item xs={12} md={6} xl={3} {...props} />
 
@@ -31,13 +28,13 @@ function App() {
   const { paymentState, submitPayment } = usePayment()
   const { notifications } = useNotifications()
 
-  const [selectedCharity, setSelectedCharity] = useState<Charity>({} as Charity)
+  const [selectedCharity, setSelectedCharity] = useState<ICharity>({} as ICharity)
   const [donating, setDonating] = useState(false)
 
-  const getDonationAmountByCharity = (payments: Payment[], charityId: number) =>
+  const getDonationAmountByCharity = (payments: IPayment[], charityId: number) =>
     payments.filter(({ charitiesId }) => charitiesId === charityId).reduce((sum, { amount }) => sum + amount, 0)
 
-  const handleCharityChange = (charity: Charity) => () => {
+  const handleCharityChange = (charity: ICharity) => () => {
     setSelectedCharity(charity)
     setDonating(true)
   }

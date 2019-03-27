@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
-import Charity from '../types/charity'
+import { ICharity } from '../data/charity'
 
 const StyledCardMedia = styled(CardMedia)`
   height: 260px;
@@ -32,7 +32,7 @@ const Item = styled.div`
 `
 
 interface Props {
-  charity: Charity
+  charity: ICharity
   donationAmount?: number
   onClick?: (event: React.MouseEvent<HTMLElement>) => void
 }

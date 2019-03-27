@@ -1,29 +1,30 @@
 import uuidV4 from 'uuid/v4'
 
 import { createStore } from '../core/store'
-
-import Notification from '../types/notification'
-
-interface NotificationMap {
-  [key: string]: Notification
+export interface INotification {
+  type: string
+  message: string
+}
+interface INotificationState {
+  [key: string]: INotification
 }
 
-const { useStore } = createStore<NotificationMap>({})
+const { useStore } = createStore<INotificationState>({})
 
-const deleteMap = (map: NotificationMap, key: string) => {
+const deleteMap = (map: INotificationState, key: string) => {
   const newMap = { ...map }
   delete newMap[key]
   return newMap
 }
 
-let notificationState: NotificationMap
+let notificationState: INotificationState
 
 export const useNotifications = () => {
   const [notificationMap, setStore] = useStore()
 
   notificationState = notificationMap
 
-  const addNotification = (notification: Notification, timeout?: number) => {
+  const addNotification = (notification: INotification, timeout?: number) => {
     const uuid = uuidV4()
 
     setStore({

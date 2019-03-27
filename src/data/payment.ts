@@ -7,6 +7,13 @@ import { useNotifications } from './notifications'
 import Payment from '../types/payment'
 import Charity from '../types/charity'
 
+export interface IPayment {
+  charitiesId: number
+  amount: number
+  currency: string
+  id: number
+}
+
 type PaymentState = {
   total: number
   payments: Payment[]
