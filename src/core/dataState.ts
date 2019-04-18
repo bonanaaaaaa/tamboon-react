@@ -1,4 +1,3 @@
-import DataState from '../types/dataState'
 import { ReactNode } from 'react'
 
 export interface IDataState<T> {

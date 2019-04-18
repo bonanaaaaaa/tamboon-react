@@ -41,7 +41,7 @@ describe('store', () => {
       })
     }
 
-    let sValue1: number = 0
+    let sValue1 = 0
     let setter1: (value: number) => void = () => {}
     let setter2: (value: number) => void = () => {}
 

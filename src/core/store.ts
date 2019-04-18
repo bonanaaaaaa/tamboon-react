@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-type Store<T> = {
+interface Store<T> {
   state: T
   setState: (value: T) => void
   setters: ((value: T) => void)[]

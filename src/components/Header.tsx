@@ -8,7 +8,7 @@ const Root = styled.div`
   flex-grow: 1;
 `
 
-type Props = {
+interface Props {
   children: ReactNode | string
 }
 
